@@ -42,7 +42,7 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
 
 1. 首先安装油猴插件Tampermonkey
 
-   - 然后搜索 [Chat AI Helper]()
+   - 然后搜索 [Chat AI Helper](https://greasyfork.org/zh-CN/scripts/526277-chat-ai-helper)
 
 2. 安装本脚本
 
