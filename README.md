@@ -1,7 +1,7 @@
 # Chat AI Helper - AI提示词助手
 
 ## 简介
-Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专为AI聊天平台（如ChatGPT、Claude、Google AI Studio等）设计的提示词管理工具。它提供了丰富的预设提示词模板，帮助用户更高效地使用AI聊天服务，特别适合学术写作和研究工作。
+Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专为AI聊天平台（如ChatGPT、Claude、Google AI Studio等AI助手）所设计的提示词管理工具。它提供了丰富的预设提示词模板，帮助用户更高效地使用AI聊天服务，特别适合学术写作和研究工作。
 
 ## 参考
 
@@ -10,6 +10,10 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
 2. [ChatGPT 插件脚本](https://github.com/winchesHe/chatGPT-prompt-scripts)
 
 3. GPT学术prompt.md
+
+4. [ChatGPT降智风险检测✅（优化版）](https://github.com/KoriIku/chatgpt-degrade-checker)
+
+5. ChatGPT 降智避免（未找到原作者）
 
 ## 主要功能
 1. 提供多种预设提示词模板
@@ -20,11 +24,11 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
    - 论文查重
    - 投稿审稿
    - AI特征降低
-
+   - PoW值、IP质量检测显示
+   - 模拟移动设备
 2. 双语支持
    - 支持中文/英文界面切换
    - 所有提示词模板双语对照
-
 3. 快捷操作
    - 快捷键支持（Ctrl+Shift+F 打开/关闭菜单）
    - Enter 换行
@@ -35,7 +39,7 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
 - Claude (claude.ai)
 - Google AI Studio (aistudio.google.com)
 - Monica (monica.im)
-- 后续还需添加
+- 后续还会继续添加
 
 ## 安装方法
 对于Chrome、Firefox、Edge浏览器
@@ -158,11 +162,12 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
 
 ## 更新日志
 - 2025-02-08（版本号V1.0）：首次发布
+- 2025-02-08（版本号V1.1）：增加了PoW值、IP质量的显示
 
 ## 反馈与建议
 如有任何问题或建议，包括要添加的提示词/功能，欢迎通过以下方式反馈：
 - 在脚本页面评论区留言
-- 提交 GitHub Issue
+- 提交 GitHub Issue [项目地址](https://github.com/SerendipityLSZ/Chat-AI-Helper)
 - 私信X（@MKZM758748）
 
 ## 许可证

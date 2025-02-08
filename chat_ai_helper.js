@@ -21,6 +21,7 @@
     if (document.querySelector("#ChatAIHelper")) {
         return;
     }
+
     // 定义菜单结构
     const MENU_STRUCTURE_English = {
         "Translation": [
@@ -225,6 +226,11 @@
                 <h2>AI Chat Helper</h2>
                 <button id="ChatAIHelperClose" class="close-button">×</button>
             </div>
+            <div class="status-bar">
+                <span>PoW: <span id="difficulty-level-simple">N/A</span></span>
+                <span class="status-separator">|</span>
+                <span>IP质量: <span id="ip-quality-simple">N/A</span></span>
+            </div>
             <div class="sidebar-content">
                 ${Object.entries(MENU_STRUCTURE_English).map(([category, items]) => `
                     <div class="menu-category">
@@ -251,6 +257,29 @@
         </div>
         
     `;
+
+    // 模拟移动设备 - 降智避免部分
+    const navigatorProxy = new Proxy(navigator, {
+        get(target, prop) {
+            if (prop === 'userAgent') {
+                return "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1";
+            }
+            if (prop === 'platform') {
+                return "iPhone";
+            }
+            if (prop === 'maxTouchPoints') {
+                return 1;
+            }
+            return Reflect.get(target, prop);
+        }
+    });
+    
+    Object.defineProperty(window, 'navigator', {
+        get() {
+            return navigatorProxy;
+        },
+        configurable: false
+    });
 
     // 添加样式
     const style = document.createElement('style');
@@ -407,6 +436,43 @@
         /* 关闭按钮悬停效果 */
         #ChatAIHelper .close-button:hover {
             color: #fff !important;
+        }
+
+        #ChatAIHelper .status-bar {
+            padding: 8px 16px !important;
+            background: #363636 !important;
+            border-bottom: 1px solid #404040 !important;
+            display: grid !important;
+            grid-template-columns: 1fr auto 1fr !important; /* 三列布局：左内容、分隔符、右内容 */
+            align-items: center !important;
+            font-size: 14px !important;
+            color: #e0e0e0 !important;
+        }
+
+        /* 左侧 PoW 内容 */
+        #ChatAIHelper .status-bar .pow-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        /* 分隔符 */
+        #ChatAIHelper .status-separator {
+            margin: 0 10px !important;
+            color: #505050 !important;
+        }
+
+        /* 右侧 IP质量 内容 */
+        #ChatAIHelper .status-bar .ip-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        #ChatAIHelper #difficulty-level-simple,
+        #ChatAIHelper #ip-quality-simple {
+            color: #4CAF50 !important;
+            margin-left: 4px !important;
         }
 
         /* 菜单分类容器样式 */
@@ -695,6 +761,62 @@
         }
     }
 
+    function updatePowStatus(difficulty) {
+        const difficultyLevelSimple = document.getElementById('difficulty-level-simple');
+        const ipQualitySimple = document.getElementById('ip-quality-simple');
+        
+        if (difficulty === 'N/A') {
+            difficultyLevelSimple.innerText = 'N/A';
+            ipQualitySimple.innerText = 'N/A';
+            return;
+        }
+    
+        const cleanDifficulty = difficulty.replace('0x', '').replace(/^0+/, '');
+        const hexLength = cleanDifficulty.length;
+        
+        let level, qualityText, textColor;
+        
+        if (hexLength <= 2) {
+            level = '困难';
+            qualityText = '高风险';
+            textColor = '#ff6b6b';
+        } else if (hexLength === 3) {
+            level = '中等';
+            qualityText = '中等';
+            textColor = '#ffd700';
+        } else if (hexLength === 4) {
+            level = '简单';
+            qualityText = '良好';
+            textColor = '#9acd32';
+        } else {
+            level = '极易';
+            qualityText = '优秀';
+            textColor = '#98fb98';
+        }
+        
+        difficultyLevelSimple.innerText = level;
+        difficultyLevelSimple.style.color = textColor;
+        ipQualitySimple.innerText = qualityText;
+        ipQualitySimple.style.color = textColor;
+    }
+    
+    // 添加fetch拦截
+    const originalFetch = window.fetch;
+    window.fetch = async function(resource, options) {
+        const response = await originalFetch(resource, options);
+        
+        if ((resource.includes('/backend-api/sentinel/chat-requirements') || 
+             resource.includes('backend-anon/sentinel/chat-requirements')) && 
+            options.method === 'POST') {
+            const clonedResponse = response.clone();
+            clonedResponse.json().then(data => {
+                const difficulty = data.proofofwork ? data.proofofwork.difficulty : 'N/A';
+                updatePowStatus(difficulty);
+            }).catch(e => console.error('解析响应时出错:', e));
+        }
+        return response;
+    };
+
     // 初始化
     function initialize() {
         const button = document.getElementById('ChatAIHelperButton');
@@ -702,6 +824,31 @@
         const closeButton = document.getElementById('ChatAIHelperClose');
     
         if (!button || !sidebar || !closeButton) return;
+    
+        // 初始化菜单内容
+        updateMenuContent(currentLanguage);
+    
+        // 创建状态栏组件
+        const statusBar = document.querySelector('.status-bar');
+        if (statusBar) {
+            const powContainer = document.createElement('div');
+            powContainer.className = 'pow-container';
+            powContainer.innerHTML = 'PoW: <span id="difficulty-level-simple">N/A</span>';
+
+            const separator = document.createElement('span');
+            separator.className = 'status-separator';
+            separator.textContent = '|';
+
+            const ipContainer = document.createElement('div');
+            ipContainer.className = 'ip-container';
+            ipContainer.innerHTML = 'IP质量: <span id="ip-quality-simple">N/A</span>';
+
+            // 清空并重新添加状态栏内容
+            statusBar.innerHTML = '';
+            statusBar.appendChild(powContainer);
+            statusBar.appendChild(separator);
+            statusBar.appendChild(ipContainer);
+        }
     
         // 初始化菜单内容
         updateMenuContent(currentLanguage);
@@ -763,6 +910,9 @@
                 sidebar.classList.toggle('active');
             }
         });
+
+        // 初始化PoW状态
+        updatePowStatus('N/A');
 
         // 使用 capture 为 true 来确保我们的处理程序最先执行
         document.addEventListener('keydown', handleKeyPress, true);
