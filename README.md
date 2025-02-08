@@ -57,7 +57,7 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
      <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
      	<tbody>
      		<tr>
-     			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/P_1.png" style="width: 550px;"></td>
+     			<td style="padding: 6px"><img src="./figure/P_1.png" style="width: 550px;"></td>
      		</tr>
      		<tr>
      			<td><strong>图 1 悬浮按钮</strong></td>
@@ -70,8 +70,8 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
      <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
      	<tbody>
      		<tr>
-     			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/P_2.png" style="width: 450px;"></td>
-     			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/P_3.png" style="width: 450px;"></td>
+     			<td style="padding: 6px"><img src="./figure/P_2.png" style="width: 450px;"></td>
+     			<td style="padding: 6px"><img src="./figure/P_3.png" style="width: 450px;"></td>
      		</tr>
      		<tr>
      			<td><strong>图 2 中文菜单</strong></td>
@@ -87,7 +87,7 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
    <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
    	<tbody>
    		<tr>
-   			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/P_4.png" style="width: 550px;"></td>
+   			<td style="padding: 6px"><img src="./figure/P_4.png" style="width: 550px;"></td>
    		</tr>
    		<tr>
    			<td><strong>图 4 使用界面（以英文示例）</strong></td>
@@ -103,7 +103,7 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
      <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
      	<tbody>
      		<tr>
-     			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/P_5.png" style="width: 550px;"></td>
+     			<td style="padding: 6px"><img src="./figure/P_5.png" style="width: 550px;"></td>
      		</tr>
      		<tr>
      			<td><strong>图 5 帮助说明</strong></td>
@@ -171,8 +171,8 @@ MIT License
 <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
 	<tbody>
 		<tr>
-			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/WeChat.jpg" style="width: 450px;"></td>
-			<td style="padding: 6px"><img src="F:/Chat AI Helper/figure/AliPay.jpg" style="width: 434px;"></td>
+			<td style="padding: 6px"><img src="./figure/WeChat.jpg" style="width: 450px;"></td>
+			<td style="padding: 6px"><img src="./figure/AliPay.jpg" style="width: 434px;"></td>
 		</tr>
 		<tr>
 			<td><strong>图 7 微信</strong></td>
