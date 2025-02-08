@@ -4,6 +4,7 @@
 // @version      2025-02-06
 // @description  AI Chat Helper for ChatGPT, Claude and other AI platforms
 // @author       LMMIKE
+// @version      V1.1
 // @match        *://chat.openai.com/*
 // @match        *://chatgpt.com/*
 // @match        *://claude.ai/*
