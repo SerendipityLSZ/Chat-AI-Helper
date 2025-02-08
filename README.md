@@ -71,49 +71,49 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
    
    - 或使用快捷键 Ctrl+Shift+F 打开菜单
    
-     <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-     	<tbody>
-     		<tr>
-     			<td style="padding: 6px"><img src="./figure/P_2.png" style="width: 450px;"></td>
-     			<td style="padding: 6px"><img src="./figure/P_3.png" style="width: 450px;"></td>
-     		</tr>
-     		<tr>
-     			<td><strong>图 2 中文菜单</strong></td>
-     			<td><strong>图 3 英文菜单</strong></td>
-     		</tr>
-     	</tbody>
-     </table>
+     <div align="center">
+       <table border="0" cellspacing="0" cellpadding="0">
+         <tr>
+           <td align="center"><img src="./figure/P_2.png" width="450"/></td>
+           <td align="center"><img src="./figure/P_3.png" width="450"/></td>
+         </tr>
+         <tr>
+           <td align="center"><b>图 2 中文菜单</b></td>
+           <td align="center"><b>图 3 英文菜单</b></td>
+         </tr>
+       </table>
+     </div>
    
    - 在菜单中选择需要的功能分类
    
    - 点击具体功能项插入提示词
    
-   <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-   	<tbody>
-   		<tr>
-   			<td style="padding: 6px"><img src="./figure/P_4.png" style="width: 550px;"></td>
-   		</tr>
-   		<tr>
-   			<td><strong>图 4 使用界面（以英文示例）</strong></td>
-   		</tr>
-   	</tbody>
-   </table>
+   <div align="center">
+     <table border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td align="center"><img src="./figure/P_4.png" width="550"/></td>
+       </tr>
+       <tr>
+         <td align="center"><b>图 4 使用界面（以英文示例）</b></td>
+       </tr>
+     </table>
+   </div>
    
 2. 界面切换
    - 点击底部导航栏的"中文"或"English"切换界面语言
    
    - 点击"帮助"查看使用说明
    
-     <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-     	<tbody>
-     		<tr>
-     			<td style="padding: 6px"><img src="./figure/P_5.png" style="width: 550px;"></td>
-     		</tr>
-     		<tr>
-     			<td><strong>图 5 帮助说明</strong></td>
-     		</tr>
-     	</tbody>
-     </table>
+     <div align="center">
+       <table border="0" cellspacing="0" cellpadding="0">
+         <tr>
+           <td align="center"><img src="./figure/P_5.png" width="550"/></td>
+         </tr>
+         <tr>
+           <td align="center"><b>图 5 帮助说明</b></td>
+         </tr>
+       </table>
+     </div>
    
 3. 文本输入
    - Enter 键：换行
@@ -172,15 +172,15 @@ MIT License
 
 如果你觉得脚本好用，可以请作者喝一杯果茶：
 
-<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-	<tbody>
-		<tr>
-			<td style="padding: 6px"><img src="./figure/WeChat.jpg" style="width: 450px;"></td>
-			<td style="padding: 6px"><img src="./figure/AliPay.jpg" style="width: 434px;"></td>
-		</tr>
-		<tr>
-			<td><strong>图 7 微信</strong></td>
-			<td><strong>图 8 支付宝</strong></td>
-		</tr>
-	</tbody>
-</table>
+<div align="center">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center"><img src="./figure/WeChat.jpg" width="450"/></td>
+      <td align="center"><img src="./figure/AliPay.jpg" width="434"/></td>
+    </tr>
+    <tr>
+      <td align="center"><b>图 7 微信</b></td>
+      <td align="center"><b>图 8 支付宝</b></td>
+    </tr>
+  </table>
+</div>
