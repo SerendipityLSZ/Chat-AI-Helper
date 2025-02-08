@@ -2,7 +2,7 @@
 // @name         Chat AI Helper
 // @namespace    http://tampermonkey.net/
 // @version      2025-02-06
-// @description  try to take over the world!
+// @description  AI Chat Helper for ChatGPT, Claude and other AI platforms
 // @author       LMMIKE
 // @match        *://chat.openai.com/*
 // @match        *://chatgpt.com/*
@@ -11,9 +11,9 @@
 // @match        *://aistudio.google.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
-// @license MIT
-// @downloadURL https://update.greasyfork.org/scripts/464480/ChatGPT-academic-prompt-helper.user.js
-// @updateURL https://update.greasyfork.org/scripts/464480/ChatGPT-academic-prompt-helper.meta.js
+// @license      MIT
+// @downloadURL  https://raw.githubusercontent.com/SerendipityLSZ/Chat-AI-Helper/main/chat_ai_helper.js
+// @updateURL    https://raw.githubusercontent.com/SerendipityLSZ/Chat-AI-Helper/main/chat_ai_helper.js
 // ==/UserScript==
 
 (function () {
@@ -609,88 +609,91 @@
     }
 
     // Enter按键的功能
-    document.addEventListener("keydown", function (e) {
+    function handleKeyPress(e) {
         // 获取焦点元素
         const activeElement = document.activeElement;
 
         // 检查焦点是否在文本输入区域
-        if (activeElement && activeElement.tagName.toLowerCase() === 'textarea') {
+        if (activeElement && 
+            (activeElement.tagName.toLowerCase() === 'textarea' || 
+             activeElement.getAttribute('contenteditable') === 'true')) {
+            
             if (e.key === "Enter") {
+                // 阻止事件冒泡和默认行为
+                e.stopPropagation();
+                e.preventDefault();
+
                 if (e.ctrlKey || e.metaKey) {
                     // Ctrl+Enter 发送消息
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    
-                    // 获取当前网站域名
+                    let sendButton;
                     const hostname = window.location.hostname;
-                    let sendButton = null;
 
-                    // 根据不同网站选择不同的发送按钮选择器
                     if (hostname.includes('chat.openai.com')) {
-                        // ChatGPT
-                        sendButton = document.querySelector('button[data-testid="send-button"], button[class*="absolute p-1 rounded-md"]');
+                        sendButton = document.querySelector('button[data-testid="send-button"]');
                     } else if (hostname.includes('claude.ai')) {
-                        // Claude
-                        sendButton = document.querySelector('button[aria-label="Send Message"]');
+                        sendButton = document.querySelector('button[aria-label="Send message"]');
                     } else if (hostname.includes('google.com')) {
-                        // Google AI
                         sendButton = document.querySelector('button[aria-label="Send message"]');
                     } else if (hostname.includes('monica.im')) {
-                        // Monica
                         sendButton = document.querySelector('button.send-button');
                     }
 
-                    // 如果找到发送按钮就触发点击
+                    if (!sendButton) {
+                        // 备用查找方法
+                        sendButton = document.querySelector('button[class*="send"], button[aria-label*="send" i], button[aria-label*="发送" i]');
+                    }
+
                     if (sendButton && !sendButton.disabled) {
                         sendButton.click();
-                    } else {
-                        // 尝试查找通用的发送按钮
-                        const possibleButtons = [
-                            ...document.querySelectorAll('button[class*="send"]'),
-                            ...document.querySelectorAll('button[aria-label*="send" i]'),
-                            ...document.querySelectorAll('button[aria-label*="发送" i]')
-                        ];
-                        
-                        // 找到第一个可见且未禁用的按钮
-                        const visibleButton = possibleButtons.find(btn => {
-                            const style = window.getComputedStyle(btn);
-                            return style.display !== 'none' && 
-                                style.visibility !== 'hidden' && 
-                                !btn.disabled;
-                        });
-
-                        if (visibleButton) {
-                            visibleButton.click();
-                        }
                     }
                 } else {
                     // 普通 Enter 换行
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    
-                    // 插入换行
-                    const textarea = activeElement;
-                    const start = textarea.selectionStart;
-                    const end = textarea.selectionEnd;
-                    textarea.value =
-                        textarea.value.substring(0, start) +
-                        "\n" +
-                        textarea.value.substring(end);
-                    
-                    // 调整光标位置
-                    textarea.selectionStart = textarea.selectionEnd = start + 1;
-
-                    // 如果在文本末尾，滚动到底部
-                    if (textarea.selectionStart === textarea.value.length) {
-                        textarea.scrollTop = textarea.scrollHeight;
+                    if (activeElement.tagName.toLowerCase() === 'textarea') {
+                        // 对于普通文本区域，插入换行符
+                        const start = activeElement.selectionStart;
+                        const end = activeElement.selectionEnd;
+                        const value = activeElement.value;
+                        
+                        // 插入换行符 \n
+                        activeElement.value = value.substring(0, start) + "\n" + value.substring(end);
+                        
+                        // 设置光标位置到换行符后
+                        activeElement.selectionStart = activeElement.selectionEnd = start + 1;
+                        
+                        // 触发 input 事件以更新UI
+                        const inputEvent = new Event('input', { bubbles: true });
+                        activeElement.dispatchEvent(inputEvent);
+                    } else if (activeElement.getAttribute('contenteditable') === 'true') {
+                        // 对于可编辑div，插入<br>标签
+                        const selection = window.getSelection();
+                        const range = selection.getRangeAt(0);
+                        
+                        // 创建并插入换行元素
+                        const br = document.createElement('br');
+                        range.deleteContents();
+                        range.insertNode(br);
+                        
+                        // 移动光标到新行
+                        range.setStartAfter(br);
+                        range.setEndAfter(br);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        
+                        // 触发 input 事件
+                        const inputEvent = new Event('input', { bubbles: true });
+                        activeElement.dispatchEvent(inputEvent);
                     }
-                    
-                    // 触发 input 事件以更新UI
-                    textarea.dispatchEvent(new Event("input", { bubbles: true }));
+
+                    // 自动滚动到底部
+                    requestAnimationFrame(() => {
+                        if (activeElement.scrollHeight > activeElement.clientHeight) {
+                            activeElement.scrollTop = activeElement.scrollHeight;
+                        }
+                    });
                 }
             }
         }
-    }, true);
+    }
 
     // 初始化
     function initialize() {
@@ -760,6 +763,22 @@
                 sidebar.classList.toggle('active');
             }
         });
+
+        // 使用 capture 为 true 来确保我们的处理程序最先执行
+        document.addEventListener('keydown', handleKeyPress, true);
+
+        // 移除可能存在的其他 Enter 键事件监听器
+        const textareas = document.querySelectorAll('textarea, [contenteditable="true"]');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.stopPropagation();
+                }
+            }, true);
+        });    
+
+        // 初始化时重新绑定所有事件
+        rebindAllEvents();
     }
 
     // 确保 DOM 加载完成后再初始化
