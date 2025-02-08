@@ -54,16 +54,20 @@ Chat AI Helper 是一个功能强大的浏览器插件（油猴脚本），专�
 1. 基本操作
    - 点击页面右侧悬浮按钮打开菜单
    
-     <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-     	<tbody>
-     		<tr>
-     			<td style="padding: 6px"><img src="./figure/P_1.png" style="width: 550px;"></td>
-     		</tr>
-     		<tr>
-     			<td><strong>图 1 悬浮按钮</strong></td>
-     		</tr>
-     	</tbody>
-     </table>
+     <div align="center">
+       <table border="0" cellspacing="0" cellpadding="0">
+         <tr>
+           <td align="center">
+             <img src="./figure/P_1.png" width="550"/>
+           </td>
+         </tr>
+         <tr>
+           <td align="center">
+             <b>图 1 悬浮按钮</b>
+           </td>
+         </tr>
+       </table>
+     </div>
    
    - 或使用快捷键 Ctrl+Shift+F 打开菜单
    
